@@ -1,7 +1,6 @@
 package com.poly.sof3021.ph23038.service;
 
 import com.poly.sof3021.ph23038.entity.ChiTietSanPham;
-import com.poly.sof3021.ph23038.entity.SanPham;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

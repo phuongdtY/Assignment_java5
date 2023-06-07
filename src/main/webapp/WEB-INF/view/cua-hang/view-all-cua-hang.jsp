@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sản Phẩm</title>
+    <title>Cửa hàng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
@@ -55,22 +55,40 @@
 <main>
     <div class="container">
         <section class="text-center mb-5">
-            <h1>Sản Phẩm</h1>
+            <h1>Cửa hàng</h1>
         </section>
         <section>
-            <form:form action="/san-pham/add" method="post" modelAttribute="sp" cssClass="px-5">
+            <form:form action="/cua-hang/add" method="post" modelAttribute="ch" cssClass="px-5">
 
                 <div class="mb-3">
-                    <label class="form-label">Mã sản phẩm</label>
+                    <label class="form-label">Mã cửa hàng</label>
                     <form:input path="ma" cssClass="form-control"/>
                     <form:errors path="ma" cssStyle="color: red"/>
                     <label class="form-label" style="color: red">${errorMa}</label>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Tên sản phẩm</label>
+                    <label class="form-label">Tên cửa hàng</label>
                     <form:input path="ten" cssClass="form-control"/>
                     <form:errors path="ten" cssStyle="color: red"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Đia chỉ cửa hàng</label>
+                    <form:input path="diaChi" cssClass="form-control"/>
+                    <form:errors path="diaChi" cssStyle="color: red"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Thành phố cửa hàng</label>
+                    <form:input path="thanhPho" cssClass="form-control"/>
+                    <form:errors path="thanhPho" cssStyle="color: red"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Quốc gia cửa hàng</label>
+                    <form:input path="quocGia" cssClass="form-control"/>
+                    <form:errors path="quocGia" cssStyle="color: red"/>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Add</button>
@@ -84,19 +102,25 @@
                     <th>#</th>
                     <th>Mã</th>
                     <th>tên</th>
+                    <th>địa chỉ</th>
+                    <th>Thành phố</th>
+                    <th>quốc gia</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${listSanPham.content}" var="sp" varStatus="stt">
+                <c:forEach items="${listCuaHang.content}" var="ch" varStatus="stt">
                     <tr>
                         <td>${stt.index + 1}</td>
-                        <td>${sp.ma}</td>
-                        <td>${sp.ten}</td>
+                        <td>${ch.ma}</td>
+                        <td>${ch.ten}</td>
+                        <td>${ch.diaChi}</td>
+                        <td>${ch.thanhPho}</td>
+                        <td>${ch.quocGia}</td>
                         <td>
-                            <a href="/san-pham/detail/${sp.id}" class="btn btn-warning">Detail</a>
-                            <a href="/san-pham/view-update/${sp.id}" class="btn btn-success">Update</a>
-                            <a href="/san-pham/remove/${sp.id}" class="btn btn-danger">Remove</a>
+                            <a href="/cua-hang/detail/${ch.id}" class="btn btn-warning">Detail</a>
+                            <a href="/cua-hang/view-update/${ch.id}" class="btn btn-success">Update</a>
+                            <a href="/cua-hang/remove/${ch.id}" class="btn btn-danger">Remove</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -105,18 +129,18 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item ${pageNo <= 0 ? 'disabled':''}">
-                        <a class="page-link" href="/san-pham/view-all?page=${ pageNo - 1}">Previous</a>
+                        <a class="page-link" href="/cua-hang/view-all?page=${ pageNo - 1}">Previous</a>
                     </li>
 
-                    <c:forEach begin="0" end="${listSanPham.totalPages - 1}" varStatus="loop">
+                    <c:forEach begin="0" end="${listCuaHang.totalPages - 1}" varStatus="loop">
                         <li class="page-item"><a class="page-link"
-                                                 href="/san-pham/view-all?page=${loop.begin + loop.count - 1}">
+                                                 href="/cua-hang/view-all?page=${loop.begin + loop.count - 1}">
                                 ${loop.begin + loop.count}
                         </a></li>
                     </c:forEach>
 
-                    <li class="page-item page-item ${pageNo >= listSanPham.totalPages - 1 ? 'disabled':''}">
-                        <a class="page-link" href="/san-pham/view-all?page=${ pageNo + 1}">Next</a>
+                    <li class="page-item page-item ${pageNo >= listCuaHang.totalPages - 1 ? 'disabled':''}">
+                        <a class="page-link" href="/cua-hang/view-all?page=${ pageNo + 1}">Next</a>
                     </li>
                 </ul>
             </nav>

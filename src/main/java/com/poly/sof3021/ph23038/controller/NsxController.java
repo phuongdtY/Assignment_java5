@@ -25,8 +25,8 @@ public class NsxController {
     private NsxService nsxService;
 
     @GetMapping("/nsx/view-all")
-    public String viewAllNsx(Model model, @RequestParam(name="page", defaultValue = "0")Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo,5);
+    public String viewAllNsx(Model model, @RequestParam(name = "page", defaultValue = "0") Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<Nsx> listNsx = nsxService.phanTrangNsx(pageable);
         model.addAttribute("listNsx", listNsx);
         model.addAttribute("pageNo", pageNo);
@@ -39,14 +39,14 @@ public class NsxController {
             @Valid @ModelAttribute("nsx") Nsx nsx,
             BindingResult result,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
     ) {
         Boolean checkMa = nsxService.checkMa(nsx.getMa());
         if (result.hasErrors() || checkMa) {
-            if (checkMa){
-                model.addAttribute("errorMa","Mã đã tồn tại");
+            if (checkMa) {
+                model.addAttribute("errorMa", "Mã đã tồn tại");
             }
-            Pageable pageable = PageRequest.of(pageNo,5);
+            Pageable pageable = PageRequest.of(pageNo, 5);
             Page<Nsx> listNsx = nsxService.phanTrangNsx(pageable);
             model.addAttribute("listNsx", listNsx);
             model.addAttribute("pageNo", pageNo);
@@ -58,44 +58,44 @@ public class NsxController {
 
     @GetMapping("/nsx/remove/{id}")
     public String deleteNsx(
-            @PathVariable("id")String id
-    ){
+            @PathVariable("id") String id
+    ) {
         nsxService.deleteNsx(UUID.fromString(id));
         return "redirect:/nsx/view-all";
     }
 
     @GetMapping("/nsx/detail/{id}")
     public String detailNsx(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
-    ){
-        Pageable pageable = PageRequest.of(pageNo,5);
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
+    ) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<Nsx> listNsx = nsxService.phanTrangNsx(pageable);
         Nsx nsx = nsxService.detailNsx(UUID.fromString(id));
-        model.addAttribute("nsx",nsx);
-        model.addAttribute("listNsx",listNsx);
-        model.addAttribute("pageNo",pageNo);
+        model.addAttribute("nsx", nsx);
+        model.addAttribute("listNsx", listNsx);
+        model.addAttribute("pageNo", pageNo);
         return "nsx/view-all-nsx";
     }
 
     @GetMapping("/nsx/view-update/{id}")
     public String viewUpdateNsx(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model
-    ){
+    ) {
         Nsx nsx = nsxService.detailNsx(UUID.fromString(id));
-        model.addAttribute("nsx",nsx);
+        model.addAttribute("nsx", nsx);
         return "nsx/view-update-nsx";
     }
 
     @PostMapping("/nsx/update/{id}")
     public String updateNsx(
-            @PathVariable("id")String id,
-            @Valid @ModelAttribute("nsx")Nsx nsx,
+            @PathVariable("id") String id,
+            @Valid @ModelAttribute("nsx") Nsx nsx,
             BindingResult result
-    ){
-        if (result.hasErrors()){
+    ) {
+        if (result.hasErrors()) {
             return "nsx/view-update-nsx";
         }
         nsxService.updateNsx(nsx);

@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chi tiết sản Phẩm</title>
+    <title>Nhân viên</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
@@ -55,48 +55,67 @@
 <main>
     <div class="container">
         <section class="text-center mb-5">
-            <h1>Chi tiết Sản Phẩm</h1>
+            <h1>Nhân viên</h1>
         </section>
         <section>
-            <form:form action="/chi-tiet-san-pham/update/${ctsp.id}" method="post" modelAttribute="ctsp"
-                       cssClass="px-5">
+            <form:form action="/nhan-vien/update/${nv.id}" method="post" modelAttribute="nv" cssClass="px-5">
+
                 <div class="row">
                     <div class="mb-3 col-3">
-                        <label class="form-label">sản phẩm</label>
-                        <form:select path="sanPham" cssClass="form-select">
-                            <c:forEach items="${listSanPham}" var="sp">
-                                <form:option value="${sp.id}"
-                                             selected="${sp.id == ctsp.sanPham.id ? 'true':''}">${sp.ten}</form:option>
+                        <label class="form-label">Mã nhân viên</label>
+                        <form:input path="ma" cssClass="form-control"/>
+                        <form:errors path="ma" cssStyle="color: red"/>
+                        <label class="form-label" style="color: red">${errorMa}</label>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <span class="form-label">Họ</span>
+                        <form:input path="ho" cssClass="form-control"/>
+                        <form:errors path="ho" cssStyle="color: red"/>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <span class="form-label">Tên đệm</span>
+                        <form:input path="tenDem" cssClass="form-control"/>
+                        <form:errors path="tenDem" cssStyle="color: red"/>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <label class="form-label">Tên</label>
+                        <form:input path="ten" cssClass="form-control"/>
+                        <form:errors path="ten" cssStyle="color: red"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-3">
+                        <label class="form-label">Số điện thoại</label>
+                        <form:input path="soDienThoai" cssClass="form-control"/>
+                        <form:errors path="soDienThoai" cssStyle="color: red"/>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <span class="form-label">Ngày sinh</span>
+                        <form:input path="ngaySinh" type="date" cssClass="form-control"/>
+                        <form:errors path="ngaySinh" cssStyle="color:red;"/>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <span class="form-label">Chức vụ</span>
+                        <form:select path="chucVu" cssClass="form-select">
+                            <c:forEach items="${listChucVu}" var="cv">
+                                <form:option value="${cv.id}"
+                                             selected="${cv.id == nv.chucVu.id ? 'true':''}">${cv.ten}</form:option>
                             </c:forEach>
                         </form:select>
                     </div>
 
                     <div class="mb-3 col-3">
-                        <label class="form-label">Nhà sản xuất</label>
-                        <form:select path="nsx" cssClass="form-select">
-                            <c:forEach items="${listNsx}" var="nsx">
-                                <form:option value="${nsx.id}"
-                                             selected="${nsx.id == ctsp.nsx.id ? 'true':''}">${nsx.ten}</form:option>
-                            </c:forEach>
-                        </form:select>
-                    </div>
-
-                    <div class="mb-3 col-3">
-                        <label class="form-label">Màu sắc</label>
-                        <form:select path="mauSac" cssClass="form-select">
-                            <c:forEach items="${listMauSac}" var="ms">
-                                <form:option value="${ms.id}"
-                                             selected="${ms.id == ctsp.mauSac.id ? 'true':''}">${ms.ten}</form:option>
-                            </c:forEach>
-                        </form:select>
-                    </div>
-
-                    <div class="mb-3 col-3">
-                        <label class="form-label">Dòng sản phẩm</label>
-                        <form:select path="dongSanPham" cssClass="form-select">
-                            <c:forEach items="${listDongSanPham}" var="dsp">
-                                <form:option value="${dsp.id}"
-                                             selected="${dsp.id == ctsp.dongSanPham.id ? 'true':''}">${dsp.ten}</form:option>
+                        <span class="form-label">Cửa hàng</span>
+                        <form:select path="cuaHang" cssClass="form-select">
+                            <c:forEach items="${listCuaHang}" var="ch">
+                                <form:option value="${ch.id}"
+                                             selected="${ch.id == nv.cuaHang.id ? 'true':''}">${ch.ten}</form:option>
                             </c:forEach>
                         </form:select>
                     </div>
@@ -104,36 +123,31 @@
 
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <span class="form-label">Năm bảo hành</span>
-                        <form:input path="namBaoHanh" cssClass="form-control"/>
-                        <form:errors path="namBaoHanh" cssStyle="color: red"/>
+                        <label class="form-label">Địa chỉ</label>
+                        <form:input path="diaChi" cssClass="form-control"/>
+                        <form:errors path="diaChi" cssStyle="color: red"/>
                     </div>
 
                     <div class="mb-3 col-6">
-                        <span class="form-label">Số lượng tồn</span>
-                        <form:input path="soLuongTon" cssClass="form-control"/>
-                        <form:errors path="soLuongTon" cssStyle="color: red"/>
+                        <label class="form-label">Mật khẩu</label>
+                        <form:input path="matKhau" cssClass="form-control"/>
+                        <form:errors path="matKhau" cssStyle="color: red"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <span class="form-label">Giá nhập</span>
-                        <form:input path="giaNhap" cssClass="form-control"/>
-                        <form:errors path="giaNhap" cssStyle="color: red"/>
+                        <label class="form-label">Giới tính</label><br/>
+                        <form:radiobutton path="gioiTinh" value="Nam" checked="true" cssClass="form-check-inline"/>Nam
+                        <form:radiobutton path="gioiTinh" value="Nữ" cssClass="form-check-inline"/>Nữ
                     </div>
 
                     <div class="mb-3 col-6">
-                        <span class="form-label">Giá bán</span>
-                        <form:input path="giaBan" cssClass="form-control"/>
-                        <form:errors path="giaBan" cssStyle="color: red"/>
+                        <label class="form-label">Trạng thái</label><br/>
+                        <form:radiobutton path="trangThai" value="0" checked="true" cssClass="form-check-inline"/>Hoạt
+                        động
+                        <form:radiobutton path="trangThai" value="1" cssClass="form-check-inline"/>Ngừng hoạt động
                     </div>
-                </div>
-
-                <div class="mb-3">
-                    <span class="form-label">Mô tả</span>
-                    <form:textarea path="moTa" cssClass="form-control"/>
-                    <form:errors path="moTa" cssStyle="color: red"/>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>

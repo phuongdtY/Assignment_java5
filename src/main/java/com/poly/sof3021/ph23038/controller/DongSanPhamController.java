@@ -25,8 +25,8 @@ public class DongSanPhamController {
     private DongSanPhamService dongSanPhamService;
 
     @GetMapping("/dong-san-pham/view-all")
-    public String viewAllDongSanPham(Model model, @RequestParam(name="page", defaultValue = "0")Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo,5);
+    public String viewAllDongSanPham(Model model, @RequestParam(name = "page", defaultValue = "0") Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<DongSanPham> pageDongSanPham = dongSanPhamService.phanTrangDongSanPham(pageable);
         model.addAttribute("listDongSanPham", pageDongSanPham);
         model.addAttribute("pageNo", pageNo);
@@ -36,17 +36,17 @@ public class DongSanPhamController {
 
     @PostMapping("/dong-san-pham/add")
     public String addDongSanPham(
-            @Valid @ModelAttribute("dsp")DongSanPham dsp,
+            @Valid @ModelAttribute("dsp") DongSanPham dsp,
             BindingResult result,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
     ) {
         Boolean checkMa = dongSanPhamService.checkMa(dsp.getMa());
         if (result.hasErrors() || checkMa) {
-            if (checkMa){
-                model.addAttribute("errorMa","Mã đã tồn tại");
+            if (checkMa) {
+                model.addAttribute("errorMa", "Mã đã tồn tại");
             }
-            Pageable pageable = PageRequest.of(pageNo,5);
+            Pageable pageable = PageRequest.of(pageNo, 5);
             Page<DongSanPham> pageDongSanPham = dongSanPhamService.phanTrangDongSanPham(pageable);
             model.addAttribute("listDongSanPham", pageDongSanPham);
             model.addAttribute("pageNo", pageNo);
@@ -58,43 +58,43 @@ public class DongSanPhamController {
 
     @GetMapping("/dong-san-pham/remove/{id}")
     public String deleteDongSanPham(
-            @PathVariable("id")String id
-    ){
+            @PathVariable("id") String id
+    ) {
         dongSanPhamService.deleteDongSanPham(UUID.fromString(id));
         return "redirect:/dong-san-pham/view-all";
     }
 
     @GetMapping("/dong-san-pham/detail/{id}")
     public String detailDongSanPham(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
-    ){
-        Pageable pageable = PageRequest.of(pageNo,5);
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
+    ) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<DongSanPham> pageDongSanPham = dongSanPhamService.phanTrangDongSanPham(pageable);
         model.addAttribute("listDongSanPham", pageDongSanPham);
         DongSanPham dsp = dongSanPhamService.detailDongSanPham(UUID.fromString(id));
-        model.addAttribute("dsp",dsp);
-        model.addAttribute("pageNo",pageNo);
+        model.addAttribute("dsp", dsp);
+        model.addAttribute("pageNo", pageNo);
         return "dong-san-pham/view-all-dong-san-pham";
     }
 
     @GetMapping("/dong-san-pham/view-update/{id}")
     public String viewUpdateDongSanPham(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model
-    ){
+    ) {
         DongSanPham dsp = dongSanPhamService.detailDongSanPham(UUID.fromString(id));
-        model.addAttribute("dsp",dsp);
+        model.addAttribute("dsp", dsp);
         return "dong-san-pham/view-update-dong-san-pham";
     }
 
     @PostMapping("/dong-san-pham/update/{id}")
     public String updateDongSanPham(
-            @PathVariable("id")String id,
-            @Valid @ModelAttribute("dsp")DongSanPham dsp,
+            @PathVariable("id") String id,
+            @Valid @ModelAttribute("dsp") DongSanPham dsp,
             BindingResult result
-    ){
+    ) {
         if (result.hasErrors()) {
             return "dong-san-pham/view-update-dong-san-pham";
         }

@@ -35,6 +35,18 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/chi-tiet-san-pham/view-all">Chi tiết sản phẩm</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/chuc-vu/view-all">Chức vụ</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/cua-hang/view-all">Cửa hàng</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/nhan-vien/view-all">Nhân viên</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/khach-hang/view-all">Khách hàng</a>
+                    </li>
                 </ul>
             </div>
         </div>

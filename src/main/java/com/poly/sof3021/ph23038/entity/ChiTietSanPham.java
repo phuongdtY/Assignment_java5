@@ -9,8 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,19 +34,19 @@ public class ChiTietSanPham {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idSP",referencedColumnName = "id")
+    @JoinColumn(name = "idSP", referencedColumnName = "id")
     private SanPham sanPham;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idNsx",referencedColumnName = "id")
+    @JoinColumn(name = "idNsx", referencedColumnName = "id")
     private Nsx nsx;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idMauSac",referencedColumnName = "id")
+    @JoinColumn(name = "idMauSac", referencedColumnName = "id")
     private MauSac mauSac;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idDongSP",referencedColumnName = "id")
+    @JoinColumn(name = "idDongSP", referencedColumnName = "id")
     private DongSanPham dongSanPham;
 
     @NotNull(message = "Không được để trống năm bảo hành")
@@ -56,7 +54,7 @@ public class ChiTietSanPham {
     private Integer namBaoHanh;
 
     @NotBlank(message = "Không được để trống mô tả")
-    @Length(max = 50,message = "không được quá 50 kí tự")
+    @Length(max = 50, message = "không được quá 50 kí tự")
     @Column(name = "mo_ta")
     private String moTa;
 

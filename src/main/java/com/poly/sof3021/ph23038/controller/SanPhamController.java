@@ -25,8 +25,8 @@ public class SanPhamController {
     private SanPhamSevice sanPhamSevice;
 
     @GetMapping("/san-pham/view-all")
-    public String viewAllSanPham(Model model, @RequestParam(name="page", defaultValue = "0")Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo,5);
+    public String viewAllSanPham(Model model, @RequestParam(name = "page", defaultValue = "0") Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<SanPham> pageSanPham = sanPhamSevice.phanTrangSanPham(pageable);
         model.addAttribute("listSanPham", pageSanPham);
         model.addAttribute("pageNo", pageNo);
@@ -36,17 +36,17 @@ public class SanPhamController {
 
     @PostMapping("/san-pham/add")
     public String addSanPham(
-            @Valid @ModelAttribute("sp")SanPham sp,
+            @Valid @ModelAttribute("sp") SanPham sp,
             BindingResult result,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
     ) {
         Boolean checkMa = sanPhamSevice.checkMa(sp.getMa());
         if (result.hasErrors() || checkMa) {
-            if (checkMa){
-                model.addAttribute("errorMa","Mã đã tồn tại");
+            if (checkMa) {
+                model.addAttribute("errorMa", "Mã đã tồn tại");
             }
-            Pageable pageable = PageRequest.of(pageNo,5);
+            Pageable pageable = PageRequest.of(pageNo, 5);
             Page<SanPham> pageSanPham = sanPhamSevice.phanTrangSanPham(pageable);
             model.addAttribute("listSanPham", pageSanPham);
             model.addAttribute("pageNo", pageNo);
@@ -58,43 +58,43 @@ public class SanPhamController {
 
     @GetMapping("/san-pham/remove/{id}")
     public String deleteSanPham(
-            @PathVariable("id")String id
-    ){
+            @PathVariable("id") String id
+    ) {
         sanPhamSevice.deleteSanPham(UUID.fromString(id));
         return "redirect:/san-pham/view-all";
     }
 
     @GetMapping("/san-pham/detail/{id}")
     public String detailSanPham(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
-    ){
-        Pageable pageable = PageRequest.of(pageNo,5);
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
+    ) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<SanPham> pageSanPham = sanPhamSevice.phanTrangSanPham(pageable);
         model.addAttribute("listSanPham", pageSanPham);
         SanPham sp = sanPhamSevice.detailSanPham(UUID.fromString(id));
-        model.addAttribute("sp",sp);
-        model.addAttribute("pageNo",pageNo);
+        model.addAttribute("sp", sp);
+        model.addAttribute("pageNo", pageNo);
         return "san-pham/view-all-san-pham";
     }
 
     @GetMapping("/san-pham/view-update/{id}")
     public String viewUpdateSanPham(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model
-    ){
+    ) {
         SanPham sp = sanPhamSevice.detailSanPham(UUID.fromString(id));
-        model.addAttribute("sp",sp);
+        model.addAttribute("sp", sp);
         return "san-pham/view-update-san-pham";
     }
 
     @PostMapping("/san-pham/update/{id}")
     public String updateSanPham(
-            @PathVariable("id")String id,
-            @Valid @ModelAttribute("sp")SanPham sp,
+            @PathVariable("id") String id,
+            @Valid @ModelAttribute("sp") SanPham sp,
             BindingResult result
-    ){
+    ) {
         if (result.hasErrors()) {
             return "san-pham/view-update-san-pham";
         }

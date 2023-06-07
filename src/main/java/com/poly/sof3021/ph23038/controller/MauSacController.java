@@ -25,8 +25,8 @@ public class MauSacController {
     private MauSacService mauSacService;
 
     @GetMapping("/mau-sac/view-all")
-    public String viewAllMauSac(Model model, @RequestParam(name="page", defaultValue = "0")Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo,5);
+    public String viewAllMauSac(Model model, @RequestParam(name = "page", defaultValue = "0") Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<MauSac> pageMauSac = mauSacService.phanTrangMauSac(pageable);
         model.addAttribute("listMauSac", pageMauSac);
         model.addAttribute("pageNo", pageNo);
@@ -36,17 +36,17 @@ public class MauSacController {
 
     @PostMapping("/mau-sac/add")
     public String addMauSac(
-            @Valid @ModelAttribute("ms")MauSac ms,
+            @Valid @ModelAttribute("ms") MauSac ms,
             BindingResult result,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
     ) {
         Boolean checkMa = mauSacService.checkMa(ms.getMa());
         if (result.hasErrors() || checkMa) {
-            if (checkMa){
-                model.addAttribute("errorMa","Mã đã tồn tại");
+            if (checkMa) {
+                model.addAttribute("errorMa", "Mã đã tồn tại");
             }
-            Pageable pageable = PageRequest.of(pageNo,5);
+            Pageable pageable = PageRequest.of(pageNo, 5);
             Page<MauSac> pageMauSac = mauSacService.phanTrangMauSac(pageable);
             model.addAttribute("listMauSac", pageMauSac);
             model.addAttribute("pageNo", pageNo);
@@ -58,43 +58,43 @@ public class MauSacController {
 
     @GetMapping("/mau-sac/remove/{id}")
     public String deleteMauSac(
-            @PathVariable("id")String id
-    ){
+            @PathVariable("id") String id
+    ) {
         mauSacService.deleteMauSac(UUID.fromString(id));
         return "redirect:/mau-sac/view-all";
     }
 
     @GetMapping("/mau-sac/detail/{id}")
     public String detailMauSac(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model,
-            @RequestParam(name="page", defaultValue = "0")Integer pageNo
-    ){
-        Pageable pageable = PageRequest.of(pageNo,5);
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo
+    ) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
         Page<MauSac> pageMauSac = mauSacService.phanTrangMauSac(pageable);
         model.addAttribute("listMauSac", pageMauSac);
         MauSac ms = mauSacService.detailMauSac(UUID.fromString(id));
-        model.addAttribute("ms",ms);
-        model.addAttribute("pageNo",pageNo);
+        model.addAttribute("ms", ms);
+        model.addAttribute("pageNo", pageNo);
         return "mau-sac/view-all-mau-sac";
     }
 
     @GetMapping("/mau-sac/view-update/{id}")
     public String viewUpdateMauSac(
-            @PathVariable("id")String id,
+            @PathVariable("id") String id,
             Model model
-    ){
+    ) {
         MauSac ms = mauSacService.detailMauSac(UUID.fromString(id));
-        model.addAttribute("ms",ms);
+        model.addAttribute("ms", ms);
         return "mau-sac/view-update-mau-sac";
     }
 
     @PostMapping("/mau-sac/update/{id}")
     public String updateMauSac(
-            @PathVariable("id")String id,
-            @Valid @ModelAttribute("ms")MauSac ms,
+            @PathVariable("id") String id,
+            @Valid @ModelAttribute("ms") MauSac ms,
             BindingResult result
-    ){
+    ) {
         if (result.hasErrors()) {
             return "mau-sac/view-update-mau-sac";
         }

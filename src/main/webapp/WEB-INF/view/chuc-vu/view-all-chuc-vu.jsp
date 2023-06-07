@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sản Phẩm</title>
+    <title>Chức vụ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
@@ -55,20 +55,20 @@
 <main>
     <div class="container">
         <section class="text-center mb-5">
-            <h1>Sản Phẩm</h1>
+            <h1>Chức vụ</h1>
         </section>
         <section>
-            <form:form action="/san-pham/add" method="post" modelAttribute="sp" cssClass="px-5">
+            <form:form action="/chuc-vu/add" method="post" modelAttribute="cv" cssClass="px-5">
 
                 <div class="mb-3">
-                    <label class="form-label">Mã sản phẩm</label>
+                    <label class="form-label">Mã chức vụ</label>
                     <form:input path="ma" cssClass="form-control"/>
                     <form:errors path="ma" cssStyle="color: red"/>
                     <label class="form-label" style="color: red">${errorMa}</label>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Tên sản phẩm</label>
+                    <label class="form-label">Tên chức vụ</label>
                     <form:input path="ten" cssClass="form-control"/>
                     <form:errors path="ten" cssStyle="color: red"/>
                 </div>
@@ -88,15 +88,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${listSanPham.content}" var="sp" varStatus="stt">
+                <c:forEach items="${listChucVu.content}" var="cv" varStatus="stt">
                     <tr>
                         <td>${stt.index + 1}</td>
-                        <td>${sp.ma}</td>
-                        <td>${sp.ten}</td>
+                        <td>${cv.ma}</td>
+                        <td>${cv.ten}</td>
                         <td>
-                            <a href="/san-pham/detail/${sp.id}" class="btn btn-warning">Detail</a>
-                            <a href="/san-pham/view-update/${sp.id}" class="btn btn-success">Update</a>
-                            <a href="/san-pham/remove/${sp.id}" class="btn btn-danger">Remove</a>
+                            <a href="/chuc-vu/detail/${cv.id}" class="btn btn-warning">Detail</a>
+                            <a href="/chuc-vu/view-update/${cv.id}" class="btn btn-success">Update</a>
+                            <a href="/chuc-vu/remove/${cv.id}" class="btn btn-danger">Remove</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -105,18 +105,18 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item ${pageNo <= 0 ? 'disabled':''}">
-                        <a class="page-link" href="/san-pham/view-all?page=${ pageNo - 1}">Previous</a>
+                        <a class="page-link" href="/chuc-vu/view-all?page=${ pageNo - 1}">Previous</a>
                     </li>
 
-                    <c:forEach begin="0" end="${listSanPham.totalPages - 1}" varStatus="loop">
+                    <c:forEach begin="0" end="${listChucVu.totalPages - 1}" varStatus="loop">
                         <li class="page-item"><a class="page-link"
-                                                 href="/san-pham/view-all?page=${loop.begin + loop.count - 1}">
+                                                 href="/chuc-vu/view-all?page=${loop.begin + loop.count - 1}">
                                 ${loop.begin + loop.count}
                         </a></li>
                     </c:forEach>
 
-                    <li class="page-item page-item ${pageNo >= listSanPham.totalPages - 1 ? 'disabled':''}">
-                        <a class="page-link" href="/san-pham/view-all?page=${ pageNo + 1}">Next</a>
+                    <li class="page-item page-item ${pageNo >= listChucVu.totalPages - 1 ? 'disabled':''}">
+                        <a class="page-link" href="/chuc-vu/view-all?page=${ pageNo + 1}">Next</a>
                     </li>
                 </ul>
             </nav>
